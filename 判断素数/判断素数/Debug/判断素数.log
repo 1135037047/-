@@ -1,0 +1,3 @@
+﻿  test.c
+e:\学习\vs2017\项目\判断素数\判断素数\test.c(7): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+  判断素数.vcxproj -> E:\学习\vs2017\项目\判断素数\Debug\判断素数.exe
