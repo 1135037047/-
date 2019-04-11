@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#define ax 3
+#define ax 4
 #define digit 34
 
 void Bin(unsigned long long num,int* arr) {
@@ -67,7 +67,7 @@ void B_D(int* arr) {
 }
 
 int main() {
-	unsigned long long id = 16100101123;
+	unsigned long long id = 16100101115;
 	int bin[digit] = {0};
 	Bin(id,bin);
 	printf("  д­Ты:");
@@ -79,9 +79,9 @@ int main() {
 	int K[digit] = { 0 };
 	int key[digit] = { 0 };
 	int cry[digit] = { 0 };
-	int arr[ax] = {1,0,1};
-	int arr1[ax] = { 0,1,0 };
-	int arr2[ax] = { 1,1,0 };
+	int arr[ax] = {1,0,1,0};
+	int arr1[ax] = { 0,1,0,1 };
+	int arr2[ax] = { 1,1,0,0 };
 	lfsr(arr,arr1,J);
 	lfsr(arr,arr2,K);
 	J_K(J,K,key);
