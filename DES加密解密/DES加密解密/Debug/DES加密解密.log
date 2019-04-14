@@ -1,0 +1,4 @@
+﻿  test.c
+e:\学习\vs2017\github项目\-\des加密解密\des加密解密\test.c(245): warning C4133: “函数”: 从“int [16]”到“char *”的类型不兼容
+e:\学习\vs2017\github项目\-\des加密解密\des加密解密\test.c(198): warning C4101: “num2”: 未引用的局部变量
+  DES加密解密.vcxproj -> E:\学习\vs2017\github项目\-\DES加密解密\Debug\DES加密解密.exe
