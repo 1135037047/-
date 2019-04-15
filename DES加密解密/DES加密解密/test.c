@@ -55,19 +55,19 @@ void exten_dE(char *R,char *Re) {
 	}
 
 }
-void permute_key1(char *key) {
+void permute_key1(char *key,char* key0) {
 	char key1[56] = {
-		key[49],key[42],key[35],key[28],key[21],key[14],key[7],
-		key[0],key[50],key[43],key[36],key[29],key[22],key[15],
-		key[8],key[1],key[51],key[44],key[37],key[30],key[23],
-		key[16],key[9],key[2],key[52],key[45],key[38],key[31],
-		key[55],key[48],key[41],key[34],key[27],key[20],key[13],
-		key[6],key[54],key[47],key[40],key[33],key[26],key[19],
-		key[12],key[5],key[53],key[46],key[39],key[32],key[25],
-		key[18],key[11],key[4],key[24],key[17],key[10],key[3]
+		key[56],key[48],key[40],key[32],key[24],key[16],key[8],
+		key[0],key[57],key[49],key[41],key[33],key[25],key[17],
+		key[9],key[1],key[58],key[50],key[42],key[34],key[26],
+		key[18],key[10],key[2],key[59],key[51],key[43],key[35],
+		key[62],key[54],key[46],key[38],key[30],key[22],key[14],
+		key[6],key[61],key[53],key[45],key[37],key[29],key[21],
+		key[13],key[5],key[60],key[52],key[44],key[36],key[28],
+		key[20],key[12],key[4],key[27],key[19],key[11],key[3]
 	};	
 	for (int i = 0; i < 56; ++i) {
-		key[i] = key1[i];
+		key0[i] = key1[i];
 	}
 }
 void lefts(char *arr,int size) {
@@ -118,7 +118,7 @@ void permute_FP(char* Fs) {
 }
 void Sprintf(char* Fs,char num,int fs) {
 	for (int i = 0; i < 4; ++i,num /= 2) {
-		Fs[i + fs] = num % 2;
+		Fs[fs + 3 - i] = num % 2;
 	}
 }
 char Snnum(char DESs[8][4][16], char* RK,int j) {
@@ -164,6 +164,7 @@ void Ring(char* arr,char* key,char leftst[16],char DESs[8][4][16],
 		lefts(C, leftst[ring]);
 		lefts(D, leftst[ring]);
 		permute_key2(C, D, K);
+		//Printf(K, 48, 48);
 		for (int i = 0; i < 48; ++i) {
 			k16[ring][i] = K[i];
 		}
@@ -176,7 +177,9 @@ void Ring(char* arr,char* key,char leftst[16],char DESs[8][4][16],
 			num = Snnum(DESs, RK,j);
 			Sprintf(Fs, num, (j / 6) * 4);
 		}
+		Printf(Fs, 32, 32);
 		permute_FP(Fs);
+		//Printf(Fs, 32, 32);
 		for (int i = 0; i < 32; ++i) {
 			L1[i] = R[i];
 			R1[i] = L[i] ^ Fs[i];
@@ -192,7 +195,7 @@ void Ring(char* arr,char* key,char leftst[16],char DESs[8][4][16],
 		arr[i + 32] = L[i];
 	}
 	inpermute_arr(arr);
-	//Printf(arr, 64, 8);
+	Printf(arr, 64, 32);
 	*num2 = to_D(arr, 64);
 	//printf ("%llu\n",*num2);
 	//to_B(num, arr, 64);
@@ -246,14 +249,15 @@ void jRing(char* arr,char DESs[8][4][16],char k16[16][48],
 
 }
 int main() {
-	unsigned long long num = 1234567;
+	unsigned long long num = 81985529216486895;
 	unsigned long long num2;
 	unsigned long long num3;
 	//printf("%d", sizeof(unsigned long long));
 	//Key 取值范围0 - 72,597,594,037,927,936
-	unsigned long long Key = 156655;
+	unsigned long long Key = 1383827165325090801;
 	char arr[64] = { 0 };
-	char key[56] = { 0 };	
+	char key0[64] = { 0 };	
+	char key[56] = { 0 };
 	char k16[16][48] = { 0 };
 	char leftst[16] = { 1,1,2,2,2,2,2,2,1,2,2,2,2,2,2,1 };
 	char DESs[8][4][16] = {
@@ -294,9 +298,12 @@ int main() {
 	//system("pause");
 	//加密
 	to_B(num, arr, 64);
-	to_B(Key, key, 56);
+	to_B(Key, key0, 64);
+	//Printf(arr, 64, 64);
+	//Printf(key0, 64, 64);
 	permute_arr(arr);
-	permute_key1(key);
+	//Printf(arr, 64, 64);
+	permute_key1(key0,key);
 	Ring(arr, key, leftst, DESs,&num2,k16);
 	printf("%llu\n", num2);
 	//解密
