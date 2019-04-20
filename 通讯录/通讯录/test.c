@@ -121,7 +121,7 @@ void Updatecontactinfo() {
 	char scan[1024] = { 0 };
 	printf("请输入要修改联系人的序号:");
 	scanf("%d", &num);
-	if (num < 0 || num > addressbook.size) {
+	if (num <= 0 || num > addressbook.size) {
 		printf("您输入的序号不存在!\n");
 		return;
 	}
@@ -199,10 +199,75 @@ void Sortcontactinfo() {
 }
 
 void Savecontactinfo_tofile() {
-
+	printf("保存联系人到文件.\n");
+	int str[500][5] = { 0 };
+	FILE* fp1 = fopen("../write-read.txt", "w");
+	if (fp1 == NULL) {
+		return;
+	}
+	for (int i = 0; i < addressbook.size; ++i) {
+		str[i][0] = strlen(addressbook.contactinfo[i].name);
+		str[i][1] = strlen(addressbook.contactinfo[i].sex);
+		str[i][2] = strlen(addressbook.contactinfo[i].age);
+		str[i][3] = strlen(addressbook.contactinfo[i].phonenum);
+		str[i][4] = strlen(addressbook.contactinfo[i].address);	
+		fwrite(str, 4, 5, fp1);
+	}
+	fclose(fp1);
+	FILE* fp = fopen("../联系人信息.txt","w");
+	if (fp == NULL) {
+		return;
+	}
+	//fprintf(fp, "序号\t姓名\t性别\t年龄\t电话\t住址\n");
+	for (int i = 0; i < addressbook.size; ++i) {
+	//	fprintf(fp,"%d\t",i + 1);
+		fwrite(addressbook.contactinfo[i].name,
+			strlen(addressbook.contactinfo[i].name), 1, fp);
+		fprintf(fp, "\t");
+		fwrite(addressbook.contactinfo[i].sex ,
+			strlen(addressbook.contactinfo[i].sex), 1, fp);
+		fprintf(fp, "\t");
+		fwrite(addressbook.contactinfo[i].age , 
+			strlen(addressbook.contactinfo[i].age), 1, fp);
+		fprintf(fp, "\t");
+		fwrite(addressbook.contactinfo[i].phonenum ,
+			strlen(addressbook.contactinfo[i].phonenum), 1, fp);
+		fprintf(fp, "\t");
+		fwrite(addressbook.contactinfo[i].address,
+			strlen(addressbook.contactinfo[i].address), 1, fp);
+		fprintf(fp, "\n");
+	}
+	fclose(fp);
+	printf("保存联系人到文件成功!\n");
 }
 void Loadcontactinfo() {
+	printf("加载联系人.\n");
+	int str[500][5] = { 0 };
+	FILE* fp1 = fopen("../write-read.txt", "w");
+	if (fp1 == NULL) {
+		return;
+	}
+	for (int i = 1; i < 10; ++i) {
+		fread(str, 4, 5, fp1);
+	}
+	fclose(fp1);
+	FILE* fp = fopen("../联系人信息.txt", "r");
+	if (fp == NULL) {
+		return;
+	}
+	//fread(addressbook.contactinfo, sizeof(Contactinfo), 1, fp);
+	//addressbook.size++;
+	for (int i = 0; i < 10; i++) {
+		fread(addressbook.contactinfo[addressbook.size].name, str[i][0], 1, fp);
+		fread(addressbook.contactinfo[addressbook.size].sex, str[i][1], 1, fp);
+		fread(addressbook.contactinfo[addressbook.size].age, str[i][2], 1, fp);
+		fwrite(addressbook.contactinfo[addressbook.size].phonenum, str[i][3], 1, fp);
+		fread(addressbook.contactinfo[addressbook.size].address, str[i][4], 1, fp);
+		addressbook.size++;
+	}
+	fclose(fp);
 
+	printf("加载联系人成功!\n");
 }
 
 int main() {
