@@ -2,6 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+//功能
+//1. 添加联系人信息
+//2. 删除指定联系人信息
+//3. 查找指定联系人信息
+//4. 修改指定联系人信息
+//5. 显示所有联系人信息
+//6. 清空所有联系人
+//7. 以名字排序所有联系人
+//8. 保存联系人到文件
+//9. 加载联系人
 typedef struct Contactinfo {
 	char name[1024];
 	char sex[1024];
@@ -17,9 +27,11 @@ typedef struct Addressbook {
 Addressbook addressbook;
 #define SIZE 150
 typedef void(*Func)();
+//转移表凑数
 void Empty() {
 	//空函数
 }
+//初始化通讯录
 void Init() {
 	addressbook.size = 0;
 	addressbook.capacity = SIZE;
@@ -33,6 +45,7 @@ void Init() {
 		addressbook.contactinfo[i].address[0] = '\0';
 	}
 }
+//菜单
 int Menu() {
 	int choice;
 	printf("========================\n");
@@ -51,7 +64,7 @@ int Menu() {
 	scanf("%d", &choice);
 	return choice;
 }
-
+//1. 添加联系人信息 
 void Addcontactinfo() {
 	printf("新增联系人.\n");
 	if (addressbook.size == addressbook.capacity) {
@@ -73,7 +86,9 @@ void Addcontactinfo() {
 	++addressbook.size;
 	printf("新增联系人成功!\n");
 }
+//声明函数
 void PrintAllcontactinfo();
+//2.删除指定联系人信息 
 void Delcontactinfo() {
 	PrintAllcontactinfo();
 	printf("删除联系人.\n");	
@@ -93,7 +108,7 @@ void Delcontactinfo() {
 	--addressbook.size;
 	printf("删除联系人成功!\n");
 }
-
+//3. 查找指定联系人信息 
 void Findcontactinfo() {
 	printf("查找联系人.\n");
 	char name[1024] = { 0 };
@@ -113,7 +128,7 @@ void Findcontactinfo() {
 		printf("没找到目标联系人!\n");
 	}
 }
-
+//4. 修改指定联系人信息 
 void Updatecontactinfo() {
 	printf("修改联系人.\n");
 	PrintAllcontactinfo();
@@ -153,7 +168,7 @@ void Updatecontactinfo() {
 	}
 	printf("修改联系人成功!\n");
 }
-
+//5. 显示所有联系人信息 
 void PrintAllcontactinfo() {
 	printf("打印通讯录.\n");
 	if (addressbook.size == 0) {
@@ -168,7 +183,7 @@ void PrintAllcontactinfo() {
 		printf("打印通讯录成功!\n");
 	}
 }
-
+//6. 清空所有联系人 
 void ClearAllcontactinfo() {
 	printf("清空所有联系人.\n");
 	int num;
@@ -181,7 +196,7 @@ void ClearAllcontactinfo() {
 	addressbook.size = 0;
 	printf("清空联系人成功!\n");
 }
-
+//7. 以名字排序所有联系人 
 void Sortcontactinfo() {
 	printf("以名字排序所有联系人.\n");
 	Contactinfo temp;
@@ -197,10 +212,12 @@ void Sortcontactinfo() {
 	}
 	printf("排序全部联系人成功!\n");
 }
-
+//8. 保存联系人到文件 
 void Savecontactinfo_tofile() {
 	printf("保存联系人到文件.\n");
 	int str[500][5] = { 0 };
+	int size;
+	size = addressbook.size;
 	FILE* fp1 = fopen("../write-read.txt", "w");
 	if (fp1 == NULL) {
 		return;
@@ -211,7 +228,7 @@ void Savecontactinfo_tofile() {
 		str[i][2] = strlen(addressbook.contactinfo[i].age);
 		str[i][3] = strlen(addressbook.contactinfo[i].phonenum);
 		str[i][4] = strlen(addressbook.contactinfo[i].address);	
-		fwrite(str, 4, 5, fp1);
+		fwrite(str[i], 4, 5, fp1);
 	}
 	fclose(fp1);
 	FILE* fp = fopen("../联系人信息.txt","w");
@@ -238,17 +255,31 @@ void Savecontactinfo_tofile() {
 		fprintf(fp, "\n");
 	}
 	fclose(fp);
+	FILE* fp2 = fopen("../联系人个数.txt", "w");
+	if (fp2 == NULL) {
+		return;
+	}
+	fwrite(&size, 4, 1, fp2);
+	fclose(fp2);
 	printf("保存联系人到文件成功!\n");
 }
+//9. 加载联系人
 void Loadcontactinfo() {
 	printf("加载联系人.\n");
 	int str[500][5] = { 0 };
+	int size;
+	FILE* fp2 = fopen("../联系人个数.txt","r");
+	if (fp2 == NULL) {
+		return;
+	}
+	fread(&size, 4, 1, fp2);
+	fclose(fp2);
 	FILE* fp1 = fopen("../write-read.txt", "w");
 	if (fp1 == NULL) {
 		return;
 	}
-	for (int i = 1; i < 10; ++i) {
-		fread(str, 4, 5, fp1);
+	for (int i = 0; i < size; ++i) {
+		fread(str[i], 4, 5, fp1);
 	}
 	fclose(fp1);
 	FILE* fp = fopen("../联系人信息.txt", "r");
@@ -257,7 +288,7 @@ void Loadcontactinfo() {
 	}
 	//fread(addressbook.contactinfo, sizeof(Contactinfo), 1, fp);
 	//addressbook.size++;
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < size; i++) {
 		fread(addressbook.contactinfo[addressbook.size].name, str[i][0], 1, fp);
 		fread(addressbook.contactinfo[addressbook.size].sex, str[i][1], 1, fp);
 		fread(addressbook.contactinfo[addressbook.size].age, str[i][2], 1, fp);
@@ -297,6 +328,7 @@ int main() {
 		}
 		else {
 			arr[choice]();
+			printf("请输入新的指令:");
 		}
 		scanf("%d", &choice);
 	}
