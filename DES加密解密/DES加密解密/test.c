@@ -164,7 +164,6 @@ void Ring(char* arr,char* key,char leftst[16],char DESs[8][4][16],
 		lefts(C, leftst[ring]);
 		lefts(D, leftst[ring]);
 		permute_key2(C, D, K);
-		//Printf(K, 48, 48);
 		for (int i = 0; i < 48; ++i) {
 			k16[ring][i] = K[i];
 		}
@@ -177,9 +176,9 @@ void Ring(char* arr,char* key,char leftst[16],char DESs[8][4][16],
 			num = Snnum(DESs, RK,j);
 			Sprintf(Fs, num, (j / 6) * 4);
 		}
+		printf("第%2d轮子密钥:", ring + 1);
 		Printf(Fs, 32, 32);
 		permute_FP(Fs);
-		//Printf(Fs, 32, 32);
 		for (int i = 0; i < 32; ++i) {
 			L1[i] = R[i];
 			R1[i] = L[i] ^ Fs[i];
@@ -188,19 +187,15 @@ void Ring(char* arr,char* key,char leftst[16],char DESs[8][4][16],
 			L[i] = L1[i];
 			R[i] = R1[i];
 		}
-		//Printf(k16[ring], 48, 48);
 	}
 	for (int i = 0; i < 32; ++i) {
 		arr[i] = R[i];
 		arr[i + 32] = L[i];
 	}
 	inpermute_arr(arr);
+	printf("64位密钥\n");
 	Printf(arr, 64, 32);
-	*num2 = to_D(arr, 64);
-	//printf ("%llu\n",*num2);
-	//to_B(num, arr, 64);
-	//Printf(arr, 64, 8);
-	
+	*num2 = to_D(arr, 64);	
 }
 void jRing(char* arr,char DESs[8][4][16],char k16[16][48],
 	unsigned long long* num3) {
@@ -234,26 +229,18 @@ void jRing(char* arr,char DESs[8][4][16],char k16[16][48],
 			L[i] = L1[i];
 			R[i] = R1[i];
 		}
-		//Printf(k16[ring], 48, 48);
 	}
 	for (int i = 0; i < 32; ++i) {
 		arr[i] = R[i];
 		arr[i + 32] = L[i];
 	}
 	inpermute_arr(arr);
-	//Printf(arr, 64, 8);
 	*num3 = to_D(arr, 64);
-	//printf("%llu\n", *num3);
-	//to_B(num, arr, 64);
-	//Printf(arr, 64, 8);
-
 }
 int main() {
 	unsigned long long num = 81985529216486895;
 	unsigned long long num2;
 	unsigned long long num3;
-	//printf("%d", sizeof(unsigned long long));
-	//Key 取值范围0 - 72,597,594,037,927,936
 	unsigned long long Key = 1383827165325090801;
 	char arr[64] = { 0 };
 	char key0[64] = { 0 };	
@@ -294,22 +281,19 @@ int main() {
 		7,11,4,1,9,12,14,2,0,6,10,13,15,3,5,8,
 		2,1,14,7,4,10,8,13,15,12,9,0,3,5,6,11
 	};
-	//printf("%d", DESs[5][3][12]);
-	//system("pause");
 	//加密
 	to_B(num, arr, 64);
 	to_B(Key, key0, 64);
-	//Printf(arr, 64, 64);
-	//Printf(key0, 64, 64);
 	permute_arr(arr);
-	//Printf(arr, 64, 64);
 	permute_key1(key0,key);
 	Ring(arr, key, leftst, DESs,&num2,k16);
+	printf("十进制密文:");
 	printf("%llu\n", num2);
 	//解密
 	to_B(num2, arr, 64);
 	permute_arr(arr);
 	jRing(arr,DESs,k16,&num3);
+	printf("解密明文:");
 	printf("%llu\n", num3);
 	system("pause");
 	return 0;
