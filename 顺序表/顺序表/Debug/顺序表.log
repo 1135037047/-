@@ -1,0 +1,5 @@
+﻿  sqelist.h
+  test.c
+e:\学习\vs2017\github项目\-\顺序表\顺序表\test.c(32): warning C4013: “SeqlistEmpty”未定义；假设外部返回 int
+e:\学习\vs2017\github项目\-\顺序表\顺序表\test.c(127): warning C4028: 形参 1 与声明不同
+  顺序表.vcxproj -> E:\学习\vs2017\github项目\-\顺序表\Debug\顺序表.exe
