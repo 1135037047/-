@@ -60,11 +60,11 @@ void SeqlistPopFront(PSeq ps) {
 
 void SeqlistInsert(PSeq ps, int pos, DataType data) {
 	assert(ps);
+	if (pos < 0 || pos > ps->size) {
+		return;
+	}
 	if (ps->size == ps->capacity) {
 		CheckCapacity(ps);
-	}
-	if (pos < 0|| pos > ps->size) {
-		return;
 	}
 	for (int i = ps->size; i > pos; --i) {
 		ps->arr[i] = ps->arr[i - 1];
@@ -146,6 +146,7 @@ int main() {
 	Seqlist seqlist;
 	PSeq ps = &seqlist;
 	SeqlistInit(ps, SIZE);
+
 	system("pause");
 	return 0;
 }
