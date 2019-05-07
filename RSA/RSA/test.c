@@ -1,48 +1,47 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
 #include <string.h>
 
-void Printf(unsigned long long arr[],int size) {
+void Printf(long long arr[],int size) {
 	for (int i = 0; i < size; ++i) {
-		printf("%llu,", arr[i]);
+		printf("%lld,", arr[i]);
+	}
+	printf("\n");
+}
+
+void NumAndLetters(long	long arr1[], char arr2[], int size1, int size3) {
+	int size = size1 / 2;
+	for (int i = 0; i < size3; ++i) {
+		for (int j = 0; j < size; arr1[i] /= 100, j++) {
+			arr2[i * size + size - j - 1] = arr1[i] % 100;
+		}
 	}
 }
 
-unsigned long long FindE(unsigned long long fn) {
-	unsigned long long e = rand() % fn;
-	while (Gcd(fn, e) == 1) {
-		unsigned long long e = rand() % fn;
-	}
-	return e;
-}
-
-int Gcd(unsigned long long fn, unsigned long long e) {
+int Gcd(long long fn,long long e) {
 	if (e == 0) {
 		return fn;
 	}
 	return Gcd(e, fn % e);
 }
 
-unsigned long long CountD1(unsigned long long e, unsigned long long fn) {
-	unsigned long long d = 1;
-	while ((d * e) % fn != 1&&d != fn) {
-		d++;
-	}
-	return d;
-}
-unsigned long long CountD(unsigned long long a, unsigned long long b) {//a > b
-	unsigned long long x[3] = { 1,0,a };
-	unsigned long long y[3] = { 0,1,b };
-	unsigned long long t[3] = { 0 };
+long long CountD(long long a, long long b) {//a > b
+	long long x[3] = { 1,0,a };
+	long long y[3] = { 0,1,b };
+	long long t[3] = { 0 };
 	int Q;
 	while (1) {
 		if (y[2] == 0) {
-			return x[2] = Gcd(a, b);
+			return x[2];
 		}
 		if (y[2] == 1) {
-			return y[2] = Gcd(a, b);
+			if (y[1] < 0) {
+				return y[1] + a;
+			}
+			return y[1];
 		}
 		Q = x[2] / y[2];
 		for (int i = 0; i < 3; i++) {
@@ -52,26 +51,25 @@ unsigned long long CountD(unsigned long long a, unsigned long long b) {//a > b
 		}
 	}
 }
-void LetterAndDNum(char arr[],char arr2[]) {
+void LettersAndNum(char arr[],char arr2[]) {
 	int num;
 	int size = strlen(arr);
 	for (int i = 0; i < size; ++i) {
-		num = arr[i] % 32;
+		num = arr[i] % 100;
 		arr2[2 * i] = num / 10;
 		arr2[2 * i + 1] = num % 10;
 	}
 }
 
 
-int DtoB(char Bi[],unsigned long long temp) {
+int DtoB(char Bi[],long long temp) {
 	int i;
 	for (i = 0; temp > 0; temp /= 2,i++) {
 		Bi[i] = temp % 2;
 	}
 	return i;
 }
-unsigned long long ModularArithmetic(unsigned long long temp, unsigned long long e,
-	unsigned long long n) {
+long long ModularArithmetic(long long temp, long long e,long long n) {
 	char Bi[64] = { 0 };
 	int size;
 	size = DtoB(Bi, e);
@@ -85,10 +83,10 @@ unsigned long long ModularArithmetic(unsigned long long temp, unsigned long long
 	return d;
 }
 
-void Encrypt(char arr2[], unsigned long long arr3[],int size,int size2,
-	unsigned long long e, unsigned long long n) { 
-	unsigned long long temp = 0;
+void Encrypt(char arr2[], long long arr3[],int size,int size2,
+	long long e, unsigned long long n) { 
 	for (int i = 0; i < size2; i += size) {
+		long long temp = 0;
 		for (int j = 0; j < size; j++) {
 			temp += arr2[i + j] * pow(10,size - 1 - j);
 		}
@@ -97,35 +95,50 @@ void Encrypt(char arr2[], unsigned long long arr3[],int size,int size2,
 	}
 }
 
-void Decode(unsigned long long arr[], unsigned long long d, unsigned long long n,int size) {
+void Decode(long long arr[], long long d, long long n,int size) {
 	for (int i = 0; i < size; ++i) {
 		arr[i] = ModularArithmetic(arr[i], d, n);
 	}
 }
 int main() {
-	//printf("%d",Gcd(1970,1066));
-	srand((unsigned long long)time(0));
-	unsigned long long q, p;
-	p = 7;//1593;
-	q = 17;//7041;
-	//p = 7;
-	//q = 17;
-	unsigned long long n = p * q;
-	unsigned long long fn = (p - 1) * (q - 1);
-	unsigned long long e = 5;// 1757316971;
-	unsigned long long d = CountD(fn, e);
-	//char arr[] = "Please wait for me"; 
-	char arr[] = "s";
+	long long q, p;
+	p = 283;
+	q = 709;
+	long long n = p * q;
+	long long fn = (p - 1) * (q - 1);
+	long long e = fn - 1;
+	long long d = CountD(fn,e);
+	char arr[1024]; 
+	printf("请输入要加密的消息:\n");
+	scanf("%[^\n]", arr);
 	char arr2[sizeof(arr) * 2 * 2] = { 0 };
-	unsigned long long arr3[sizeof(arr) * 2 * 2] = { 0 };
-	LetterAndDNum(arr, arr2);
+	long long arr3[sizeof(arr) * 2 * 2] = { 0 };
+	LettersAndNum(arr, arr2);
 	int size1 = 2;
 	int size2 = 2 * strlen(arr);
-	Encrypt(arr2, arr3, size1,size2,e,n);
 	int size3 = size2 / size1 + !!(size2 % size1);
+	printf("明文:");
+	for (int i = 0; i < 2 * strlen(arr); i++) {
+		printf("%d", arr2[i]);
+	}
+	printf("\n");
+	Encrypt(arr2, arr3, size1,size2,e,n);
+	printf("密文:");
 	Printf(arr3, size3);
 	Decode(arr3, d, n,size3);
+	printf("解密明文:");
 	Printf(arr3, size3); 
+	NumAndLetters(arr3, arr2, size1, size3);
+	printf("消息:");
+	for (int i = 0; i < strlen(arr);i++) {
+		if (arr2[i] < 30) {
+			printf("%c", arr2[i] + 100);
+		}
+		else {
+			printf("%c", arr2[i]);
+		}
+	}
+	printf("\n");
 	system("pause");
 	return 0;
 }
