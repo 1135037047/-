@@ -5,11 +5,39 @@
 #include <math.h>
 #include <string.h>
 
+void Sushu(int size, int arr[]) {
+	int temp = 1;
+	for (int i = 0; i < size; ++i) {
+		int flag = 1;
+		while (flag) {
+			temp++;
+			int j = 2;
+			for (; j <= sqrt(temp); ++j) {
+				if (temp % j == 0) {
+					break;
+				}
+			}
+			if (j > sqrt(temp)) {
+				flag = 0;
+			}
+		}
+		arr[i] = temp;
+	}
+}
+
 void Printf(long long arr[],int size) {
 	for (int i = 0; i < size; ++i) {
 		printf("%lld,", arr[i]);
 	}
 	printf("\n");
+}
+
+long long FindE(long long fn,int arrs[]) {
+	long long e = arrs[rand() % 968 + 32];
+	while (Gcd(fn,e) != 1) {
+		long long e = arrs[rand() % 968 + 32];
+	}
+	return e;
 }
 
 void NumAndLetters(long	long arr1[], char arr2[], int size1, int size3) {
@@ -100,13 +128,29 @@ void Decode(long long arr[], long long d, long long n,int size) {
 		arr[i] = ModularArithmetic(arr[i], d, n);
 	}
 }
+
+int SizeN(int n) {
+	int count = 0;
+	for (; n > 0; n /= 10) {
+		count++;
+	}
+	if (count % 2 != 0) {
+		count++;
+	}
+	return count / 2;
+}
+
 int main() {
+	srand((long long)time(0));
+	//[137,17389]素数范围 
+	int arrs[2048] = { 0 };
+	Sushu(1000, arrs);
 	long long q, p;
-	p = 283;
-	q = 709;
+	p = arrs[rand() % 968 + 32];
+	q = arrs[rand() % 968 + 32];
 	long long n = p * q;
 	long long fn = (p - 1) * (q - 1);
-	long long e = fn - 1;
+	long long e = FindE(fn,arrs);
 	long long d = CountD(fn,e);
 	char arr[1024]; 
 	printf("请输入要加密的消息:\n");
@@ -114,7 +158,7 @@ int main() {
 	char arr2[sizeof(arr) * 2 * 2] = { 0 };
 	long long arr3[sizeof(arr) * 2 * 2] = { 0 };
 	LettersAndNum(arr, arr2);
-	int size1 = 2;
+	int size1 = SizeN(n);
 	int size2 = 2 * strlen(arr);
 	int size3 = size2 / size1 + !!(size2 % size1);
 	printf("明文:");
