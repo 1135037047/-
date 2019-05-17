@@ -8,6 +8,7 @@ void SeqlistPrint(PSeq ps) {
 	}
 	printf("\n");
 }
+
 void SeqlistInit(PSeq ps, int capacity) {
 	ps->arr = (int*)malloc(capacity * sizeof(int));
 	if (ps == NULL) {
@@ -146,7 +147,6 @@ int main() {
 	Seqlist seqlist;
 	PSeq ps = &seqlist;
 	SeqlistInit(ps, SIZE);
-
 	system("pause");
 	return 0;
 }

@@ -1,0 +1,3 @@
+﻿  test.c
+e:\学习\vs2017\github项目\-\栈\栈\test.c(34): warning C4047: “return”:“SDataType”与“void *”的间接级别不同
+  栈.vcxproj -> E:\学习\vs2017\github项目\-\栈\Debug\栈.exe
