@@ -97,6 +97,7 @@ int DtoB(char Bi[],long long temp) {
 	}
 	return i;
 }
+//快速指数算法
 long long ModularArithmetic(long long temp, long long e,long long n) {
 	char Bi[64] = { 0 };
 	int size;
@@ -113,12 +114,13 @@ long long ModularArithmetic(long long temp, long long e,long long n) {
 
 void Encrypt(char arr2[], long long arr3[],int size,int size2,
 	long long e, unsigned long long n) { 
+	//分组
 	for (int i = 0; i < size2; i += size) {
 		long long temp = 0;
 		for (int j = 0; j < size; j++) {
 			temp += arr2[i + j] * pow(10,size - 1 - j);
 		}
-
+		//对每一个分组进行加密
 		arr3[i/size] = ModularArithmetic(temp, e, n);
 	}
 }
@@ -151,27 +153,38 @@ int main() {
 	long long n = p * q;
 	long long fn = (p - 1) * (q - 1);
 	long long e = FindE(fn,arrs);
+	//欧几里得算法求乘法逆元
 	long long d = CountD(fn,e);
+	//存储字符串
 	char arr[1024]; 
 	printf("请输入要加密的消息:\n");
 	scanf("%[^\n]", arr);
+	//存储字符串的ASCII
 	char arr2[sizeof(arr) * 2 * 2] = { 0 };
+
 	long long arr3[sizeof(arr) * 2 * 2] = { 0 };
+	//将字符串转换为数字存储在arr2
 	LettersAndNum(arr, arr2);
+	//分组长度
 	int size1 = SizeN(n);
+	//arr2中存储内容的长度
 	int size2 = 2 * strlen(arr);
+	//分组个数
 	int size3 = size2 / size1 + !!(size2 % size1);
 	printf("明文:");
 	for (int i = 0; i < 2 * strlen(arr); i++) {
 		printf("%d", arr2[i]);
 	}
 	printf("\n");
+	//加密
 	Encrypt(arr2, arr3, size1,size2,e,n);
 	printf("密文:");
 	Printf(arr3, size3);
+	//解密
 	Decode(arr3, d, n,size3);
 	printf("解密明文:");
 	Printf(arr3, size3); 
+	//将密文组转换为两位数的ASCII码
 	NumAndLetters(arr3, arr2, size1, size3);
 	printf("消息:");
 	for (int i = 0; i < strlen(arr);i++) {
