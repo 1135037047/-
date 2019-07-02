@@ -5,25 +5,51 @@
 #include <math.h>
 #include <string.h>
 
-void Sushu(int size, int arr[]) {
-	int temp = 1;
-	for (int i = 0; i < size; ++i) {
-		int flag = 1;
-		while (flag) {
-			temp++;
-			int j = 2;
-			for (; j <= sqrt(temp); ++j) {
-				if (temp % j == 0) {
-					break;
-				}
-			}
-			if (j > sqrt(temp)) {
-				flag = 0;
-			}
+int Miller_Rabin() {
+	long long n = rand();
+	while (1) {
+		
+		if (n < 2) {
+			n = n + 3;
+			continue;
 		}
-		arr[i] = temp;
+		if (n == 2) {
+			return n;
+		}
+		long long q = 0, m = n - 1;
+		while (m % 2 == 0) {
+			m /= 2;
+			++q;
+		}
+		if (q == 0) {
+			n = n + 3;
+			continue;
+		}
+		long long a = rand() % (n - 2) + 2;
+		long long x1 = (long long)pow(a, m), x2;
+		x2 = x1 % n;
+		if (x2 == 1 && x1 != 1 && x1 != n - 1) {
+			n = n + 3;
+			continue;
+		}
+		for (int i = 1; i <= q; ++i) {
+			x2 = (x1 * x1) % n;
+			if (x2 == 1 && x1 != 1 && x1 != n - 1) {
+				n = n + 3;
+				continue;
+			}
+			x1 = x2;
+		}
+		if (x2 != 1) {
+			n = n + 3;
+			continue;
+		}
+		else {
+			return n;
+		}
 	}
 }
+
 
 void Printf(long long arr[],int size) {
 	for (int i = 0; i < size; ++i) {
@@ -32,10 +58,10 @@ void Printf(long long arr[],int size) {
 	printf("\n");
 }
 
-long long FindE(long long fn,int arrs[]) {
-	long long e = arrs[rand() % 968 + 32];
+long long FindE(long long fn) {
+	long long e = rand() % (fn - 2) + 2;
 	while (Gcd(fn,e) != 1) {
-		long long e = arrs[rand() % 968 + 32];
+		long long e = rand() % (fn - 2) + 2;
 	}
 	return e;
 }
@@ -144,15 +170,12 @@ int SizeN(int n) {
 
 int main() {
 	srand((long long)time(0));
-	//[137,17389]素数范围 
-	int arrs[2048] = { 0 };
-	Sushu(1000, arrs);
 	long long q, p;
-	p = arrs[rand() % 968 + 32];
-	q = arrs[rand() % 968 + 32];
+	p = Miller_Rabin();
+	q = Miller_Rabin();
 	long long n = p * q;
 	long long fn = (p - 1) * (q - 1);
-	long long e = FindE(fn,arrs);
+	long long e = FindE(fn);
 	//欧几里得算法求乘法逆元
 	long long d = CountD(fn,e);
 	//存储字符串

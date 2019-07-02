@@ -1,10 +1,13 @@
 ﻿  test.c
-e:\学习\vs2017\github项目\-\rsa\rsa\test.c(37): warning C4013: “Gcd”未定义；假设外部返回 int
-e:\学习\vs2017\github项目\-\rsa\rsa\test.c(54): warning C4244: “return”: 从“__int64”转换到“int”，可能丢失数据
-e:\学习\vs2017\github项目\-\rsa\rsa\test.c(74): warning C4244: “=”: 从“__int64”转换到“int”，可能丢失数据
-e:\学习\vs2017\github项目\-\rsa\rsa\test.c(121): warning C4244: “+=”: 从“double”转换到“__int64”，可能丢失数据
-e:\学习\vs2017\github项目\-\rsa\rsa\test.c(146): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-e:\学习\vs2017\github项目\-\rsa\rsa\test.c(169): warning C4244: “函数”: 从“__int64”转换到“int”，可能丢失数据
-e:\学习\vs2017\github项目\-\rsa\rsa\test.c(175): warning C4018: “<”: 有符号/无符号不匹配
-e:\学习\vs2017\github项目\-\rsa\rsa\test.c(190): warning C4018: “<”: 有符号/无符号不匹配
+e:\学习\vs2017\github项目\-\rsa\rsa\test.c(17): warning C4244: “return”: 从“__int64”转换到“int”，可能丢失数据
+e:\学习\vs2017\github项目\-\rsa\rsa\test.c(29): warning C4244: “函数”: 从“__int64”转换到“double”，可能丢失数据
+e:\学习\vs2017\github项目\-\rsa\rsa\test.c(48): warning C4244: “return”: 从“__int64”转换到“int”，可能丢失数据
+e:\学习\vs2017\github项目\-\rsa\rsa\test.c(63): warning C4013: “Gcd”未定义；假设外部返回 int
+e:\学习\vs2017\github项目\-\rsa\rsa\test.c(80): warning C4244: “return”: 从“__int64”转换到“int”，可能丢失数据
+e:\学习\vs2017\github项目\-\rsa\rsa\test.c(100): warning C4244: “=”: 从“__int64”转换到“int”，可能丢失数据
+e:\学习\vs2017\github项目\-\rsa\rsa\test.c(147): warning C4244: “+=”: 从“double”转换到“__int64”，可能丢失数据
+e:\学习\vs2017\github项目\-\rsa\rsa\test.c(172): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+e:\学习\vs2017\github项目\-\rsa\rsa\test.c(192): warning C4244: “函数”: 从“__int64”转换到“int”，可能丢失数据
+e:\学习\vs2017\github项目\-\rsa\rsa\test.c(198): warning C4018: “<”: 有符号/无符号不匹配
+e:\学习\vs2017\github项目\-\rsa\rsa\test.c(213): warning C4018: “<”: 有符号/无符号不匹配
   RSA.vcxproj -> E:\学习\vs2017\github项目\-\RSA\Debug\RSA.exe
