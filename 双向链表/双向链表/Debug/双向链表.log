@@ -1,0 +1,6 @@
+﻿  test.c
+e:\学习\vs2017\github项目\-\双向链表\双向链表\test.c(11): warning C4047: “=”:“DLDataType”与“void *”的间接级别不同
+e:\学习\vs2017\github项目\-\双向链表\双向链表\test.c(108): warning C4033: “BuyDLListNode”必须返回值
+e:\学习\vs2017\github项目\-\双向链表\双向链表\test.c(112): warning C4047: “=”:“DLDataType”与“void *”的间接级别不同
+e:\学习\vs2017\github项目\-\双向链表\双向链表\test.c(114): warning C4715: “BuyDLListNode”: 不是所有的控件路径都返回值
+  双向链表.vcxproj -> E:\学习\vs2017\github项目\-\双向链表\Debug\双向链表.exe
