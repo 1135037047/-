@@ -1,3 +1,0 @@
-﻿  test.cpp
-e:\学习\vs2017\github项目\-\7.6\7.6\test.cpp(23): warning C4244: “+=”: 从“double”转换到“int”，可能丢失数据
-  7.6.vcxproj -> E:\学习\vs2017\github项目\-\7.6\Debug\7.6.exe

@@ -1,0 +1,4 @@
+﻿  test.cpp
+c:\users\dell\source\repos\7.3\7.3\test.cpp(44): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\dell\source\repos\7.3\7.3\test.cpp(59): warning C4018: “>”: 有符号/无符号不匹配
+  7.3.vcxproj -> C:\Users\DELL\Source\Repos\7.3\Debug\7.3.exe
