@@ -2,9 +2,8 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-#if 0
-class Gloves {
-public:
+#if 1
+
 	int findMinimum(int n, vector<int> left, vector<int> right) {
 		// write code here
 		int res1 = 0, res2 = 0;
@@ -37,7 +36,7 @@ public:
 		res2 = res2 - temp2 + 1;
 		return min(res1, res2);
 	}
-};
+
 
 	int main() {
 		vector<int> a{ 0,7,1,6 };
@@ -77,36 +76,3 @@ public:
 		return 0;
 	}
 #endif
-
-#include<iostream>
-	using namespace std;
-	class B
-	{
-	public:
-		B()
-		{
-			cout << "default constructor" << " ";
-		}
-		~B()
-		{
-			cout << "destructed" << " ";
-		}
-		B(int i) : data(i)
-		{
-			cout << "constructed by parameter" << data << " ";
-		}
-	private: int data;
-	};
-	B Play(B b)
-	{
-		return b;
-	}
-
-	void test() {
-		B temp = Play(5);
-	}
-	int main(int argc, char *argv[])
-	{
-		test();
-		return 0;
-	}
