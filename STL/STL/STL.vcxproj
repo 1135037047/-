@@ -115,6 +115,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Priority_queue.hpp" />
+    <ClInclude Include="Queue.hpp" />
+    <ClInclude Include="Stack.hpp" />
     <ClInclude Include="String.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vector1.h" />

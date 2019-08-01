@@ -13,7 +13,7 @@ namespace bite {
 			, endofstorage(nullptr)
 		{}
 
-		vector(size_t n,const T& val) {
+		vector(int n,const T& val) {
 			start = new T[n];
 			for (int i = 0; i < n; ++i) {
 				start[i] = val;
@@ -50,19 +50,21 @@ namespace bite {
 			endofstorage = finish;
 		}
 		vector<T>& operator=(const vector<T>& v) {
-			if (start == nullptr) {
-				vector(v);
-			}
-			else {
-				T* temp = new T[v.size()];
-				for (int i = 0; i < v.size(); ++i) {
-					temp[i] = v[i];
+			if (v != this) {
+				if (start == nullptr) {
+					vector(v);
 				}
-				delete[] start;
-				start = temp;
-				finish = start + v.size();
-				endofstorage = finish;
-				reserve(v.capacity());
+				else {
+					T* temp = new T[v.size()];
+					for (int i = 0; i < v.size(); ++i) {
+						temp[i] = v[i];
+					}
+					delete[] start;
+					start = temp;
+					finish = start + v.size();
+					endofstorage = finish;
+					reserve(v.capacity());
+				}
 			}
 			return *this;
 		}
@@ -293,4 +295,14 @@ void TestVector3()
 	cout << v.size() << endl;
 	cout << v.capacity() << endl;
 	PrintVector(v);
+}
+
+void test() {
+	int array[] = { 1, 2, 3, 4, 5 };
+	bite::vector<int> v4(array, array + sizeof(array) / sizeof(array[0]));
+	PrintVector(v4);
+
+	std::list<int> L{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+	bite::vector<int> v5(L.begin(), L.end());
+	PrintVector(v5);
 }
