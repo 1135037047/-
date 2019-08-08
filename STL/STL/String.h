@@ -43,12 +43,15 @@ namespace Str {
 		}
 
 		string& operator=(const string &s) {
-			char* tmp = new char[s._capacity];
-			strcpy(tmp, s._str);
-			delete[] _str;
-			_str = tmp;
-			_size = s._size;
-			_capacity = s._capacity;
+			if (this != &s) {
+				char* tmp = new char[s._capacity];
+				strcpy(tmp, s._str);
+				delete[] _str;
+				_str = tmp;
+				_size = s._size;
+				_capacity = s._capacity;
+			}
+
 			return *this;
 		}
 

@@ -1,8 +1,8 @@
-#include "Priority_queue.hpp"
+#include "List.hpp"
 int main() {
-	//TestVector1();
-	test1();
-	//test2();
+	TestList1();
+	TestList2();
+	TestList3();
 
 	return 0;
 }

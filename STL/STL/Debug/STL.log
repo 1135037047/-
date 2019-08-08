@@ -1,2 +1,15 @@
 ﻿  tets.cpp
+e:\学习\vs2017\github项目\-\stl\stl\list.hpp(143): warning C4018: “<”: 有符号/无符号不匹配
+  e:\学习\vs2017\github项目\-\stl\stl\list.hpp(140): note: 编译 类 模板 成员函数 "void bite::list<int>::resize(size_t,const T &)" 时
+          with
+          [
+              T=int
+          ]
+  e:\学习\vs2017\github项目\-\stl\stl\list.hpp(308): note: 参见对正在编译的函数 模板 实例化“void bite::list<int>::resize(size_t,const T &)”的引用
+          with
+          [
+              T=int
+          ]
+  e:\学习\vs2017\github项目\-\stl\stl\list.hpp(256): note: 参见对正在编译的 类 模板 实例化 "bite::list<int>" 的引用
+e:\学习\vs2017\github项目\-\stl\stl\list.hpp(149): warning C4018: “<”: 有符号/无符号不匹配
   STL.vcxproj -> E:\学习\vs2017\github项目\-\STL\Debug\STL.exe
